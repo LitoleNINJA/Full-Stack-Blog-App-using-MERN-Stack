@@ -3,15 +3,18 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import { useLocation } from 'react-router-dom';
+import { Input, TextField } from '@material-ui/core';
 import axios from 'axios';
 import { useEffect, useState } from 'react'; 
+import { useAuth0 } from "@auth0/auth0-react";
+import parse from 'html-react-parser';
 
 export default function SinglePost() {
     const location = useLocation();
     const path = location.pathname.split("/")[2];
     const [post, setPost] = useState({});
-    const [title, setTitle] = useState('');
-    const [desc, setDesc] = useState('');
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
     const [update, setUpdate] = useState(false);
 
     useEffect(() => {
@@ -25,6 +28,7 @@ export default function SinglePost() {
     }, [path])
 
     const loc = "http://localhost:5000/images/";
+    const { user } = useAuth0();
 
     const handelEdit = () => {
         try {
@@ -60,21 +64,24 @@ export default function SinglePost() {
     return (
         <div className='singlePost'>
             { post.photo && (
-                <img src={ loc + post.photo } className='singlepostImg' />
+                <img src={ loc + post.photo } className='singlepostImg' alt=""/>
             )}
             <div className='singlepostDate'>
                 <strong>Date Added : </strong> {new Date(post.createdAt).toDateString()}
                 <br /><br />
                 <strong>Author : </strong> {post.author}
             </div>
-            <EditIcon className='editIcon' onClick={handelEdit} />
-            <DeleteIcon className='deleteIcon' onClick={handelDelete} />
+            { user && (
+                <>
+                    <EditIcon className='editIcon' onClick={handelEdit} />
+                    <DeleteIcon className='deleteIcon' onClick={handelDelete} />
+                </>
+            )}
             <div className="inputWrapper">
                 {
-                    update ? <input 
-                                type="text" 
+                    update ? <Input 
                                 value={title} 
-                                className='singlepostTitleInput'
+                                id='singlepostTitleInput'
                                 onChange={ (e)=>setTitle(e.target.value)} 
                                 autoFocus/> : (
                         <h1 className="singlepostTitle">{post.title}</h1>
@@ -82,17 +89,20 @@ export default function SinglePost() {
                 }
                 {
                     update ?    <div className="inputWrapper"> 
-                                    <textarea 
-                                    type="text" 
-                                    value={desc} 
-                                    className='singlepostDescInput' 
-                                    onChange={ (e)=>setDesc(e.target.value) }/> 
+                                    <TextField 
+                                        value={desc} 
+                                        id='singlepostDescInput' 
+                                        multiline
+                                        rows={20}
+                                        onChange={ (e)=>setDesc(e.target.value) }/> 
                                     <Button 
                                         variant='contained' 
                                         color='primary'
+                                        id='singlePostBtn'
+                                        size="large"
                                         onClick={handelUpdate}>UPDATE</Button>
                                 </div> : (
-                        <p className="singlepostDesc">{post.desc}</p>
+                        <p className="singlepostDesc">{parse(desc)}</p>
                     )
                 }
             </div>

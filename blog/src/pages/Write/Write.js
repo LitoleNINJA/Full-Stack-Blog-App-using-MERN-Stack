@@ -2,14 +2,16 @@ import './Write.css'
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import TextareaAutosize from 'react-textarea-autosize';
-import { useState} from 'react';
+import { Input } from '@material-ui/core';
+import { useState } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 export default function Write() {
-    const [title, setTitle] = useState('');
-    const [desc, setDesc] = useState('');
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
     const [file, setFile] = useState(null);
-    const [author, setAuthor] = useState('');
+    const [author, setAuthor] = useState("");
 
     const handelSubmit = async(e) => {
         console.log("HERE");
@@ -49,24 +51,28 @@ export default function Write() {
                     <label htmlFor="fileInput" className='plusIcon'>
                         <AddIcon color='primary' style={{ fontSize: 40 }}/>
                     </label>
-                    <input type="file" id="fileInput" onChange={e=>setFile(e.target.files[0])}/>
-                    <input 
-                        type="text" 
+                    <Input type="file" id="fileInput" onChange={e=>setFile(e.target.files[0])} />
+                    <Input
                         placeholder='Post Title' 
-                        className='writeInput' 
+                        id='writeInput' 
                         autoFocus={true}
                         onChange = {e=>setTitle(e.target.value)} />
                 </div>
-                <div>
-                    <TextareaAutosize 
-                        placeholder='Tell your story ... ' 
-                        type='text' 
-                        className='writeInput writeText'
-                        onChange = {e=>setDesc(e.target.value)} />
+                <div style={{color: "#121212"}}>
+                <CKEditor
+                    editor={ ClassicEditor }
+                    config = {
+                         { toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'undo', 'redo' ] },
+                         { placeholder: 'Tell Your Story ... ' }
+                    }
+                    onChange={ ( event, editor ) => {
+                        const data = editor.getData();
+                        console.log(data);
+                        setDesc(data);
+                    } } />
                 </div>
-                <input 
-                    type="text" 
-                    className='writeInput author' 
+                <Input 
+                    id="author" 
                     placeholder='Written By ... '
                     onChange = {e=>setAuthor(e.target.value)} />
                 <div className="submitBtn">

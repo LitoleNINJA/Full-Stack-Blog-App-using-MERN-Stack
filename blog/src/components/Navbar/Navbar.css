@@ -8,8 +8,7 @@
     margin-left: 2%;
 }
 
-.sidenav {
-    display: none;
+#sidenav {
     width: 15%;
     background-color: #3f51b5;
     position: absolute;
@@ -17,9 +16,9 @@
     left: 0;
     z-index: 10;
 }
-.active {
-    display: flex;
-    flex-direction: column;
+.sidenav-animate {
+    animation: fadeInLeft;
+    animation-duration: 1s;
 }
 
 ul {
@@ -32,4 +31,52 @@ li {
     font-size: 4vh;
     font-weight: 700;
     margin: 2rem 0;
+}
+
+.defaultImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    position: absolute;
+    right: 5.5rem;
+    top: -0.3rem
+}
+.defaultImgActive {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    position: absolute;
+    right: 6.5rem;
+    top: -0.5rem;
+}
+
+.loginBtn {
+    position: absolute;
+    right: 3%;
+}
+
+.fakelink:hover {
+    cursor: pointer;
+}
+
+#alert-dialog-title, #alert-dialog-action {
+    background-color: #323232;
+    color: #f50057;
+}
+#alert-dialog-action {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+@media only screen and (max-width: 900px) {
+    #sidenav {
+        width: 40%;
+    }
+    .defaultImgActive {
+        width: 40px;
+        height: 40px;
+        right: 6rem;
+        top: -0.3rem;
+    }
 }

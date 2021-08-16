@@ -17,7 +17,7 @@
     height: auto;
 }
 .singlepostDate {
-    margin-top: 1rem;
+    margin: 1rem 0;
     font-size: 3vmin;
     align-self: flex-start;
 }
@@ -28,7 +28,7 @@
     font-size: 9vmin;
     font-weight: 400;
 }
-.singlepostTitleInput {
+#singlepostTitleInput {
     font-family: 'Bebas Neue', cursive;
     width: 600px;
     margin-top: 1rem;
@@ -51,23 +51,20 @@
     line-height: 2;
     margin-top: 3rem;
 }
-.singlepostDescInput {
-    width: 800px;
+#singlepostDescInput {
+    width: 1000px;
     font-family: 'Merriweather', serif;
     font-size: 3.2vh;
     font-weight: 400;
     line-height: 2;
-    border: none;
     margin-top: 3rem;
-    margin-bottom: 3rem;
+    padding: 0.5rem 1rem;
     background-color: #121212;
     color: #e8e7e6;
 }
-.singlepostDescInput:focus {
-    outline: none;
-}
-.singlePostBtn {
+#singlePostBtn {
     margin-top: 3rem;
+    margin-bottom: 10rem;
 }
 .editIcon {
     color: teal;

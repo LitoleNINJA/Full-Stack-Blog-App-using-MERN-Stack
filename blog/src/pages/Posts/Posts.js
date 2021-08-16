@@ -16,8 +16,8 @@ export default function Posts() {
 
     return (
         <div className='posts'>
-            {posts.map((p) => (
-                <Post post={p}/>
+            {posts.map((p, i) => (
+                <Post post={p} key={i}/>
             ))}
         </div>
     )
