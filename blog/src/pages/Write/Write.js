@@ -67,7 +67,6 @@ export default function Write() {
                     }
                     onChange={ ( event, editor ) => {
                         const data = editor.getData();
-                        console.log(data);
                         setDesc(data);
                     } } />
                 </div>

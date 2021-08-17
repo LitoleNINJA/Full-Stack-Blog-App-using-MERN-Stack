@@ -3,9 +3,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import { useLocation } from 'react-router-dom';
-import { Input, TextField } from '@material-ui/core';
+import { Input } from '@material-ui/core';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
-import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import parse from 'html-react-parser';
 
@@ -18,6 +20,7 @@ export default function SinglePost() {
     const [update, setUpdate] = useState(false);
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         const getPost = async () => {
             const res = await axios.get('/posts/' + path);
             setPost(res.data);
@@ -38,7 +41,7 @@ export default function SinglePost() {
         }
     }
 
-    const handelDelete = async() => {
+    const handelDelete = async () => {
         try {
             await axios.delete("/posts/" + path);
             window.location.replace("/");
@@ -47,7 +50,7 @@ export default function SinglePost() {
         }
     }
 
-    const handelUpdate = async() => {
+    const handelUpdate = async () => {
         try {
             const newPost = {
                 title,
@@ -63,15 +66,15 @@ export default function SinglePost() {
 
     return (
         <div className='singlePost'>
-            { post.photo && (
-                <img src={ loc + post.photo } className='singlepostImg' alt=""/>
+            {post.photo && (
+                <img src={loc + post.photo} className='singlepostImg' alt="" />
             )}
             <div className='singlepostDate'>
                 <strong>Date Added : </strong> {new Date(post.createdAt).toDateString()}
                 <br /><br />
                 <strong>Author : </strong> {post.author}
             </div>
-            { user && (
+            {user && (
                 <>
                     <EditIcon className='editIcon' onClick={handelEdit} />
                     <DeleteIcon className='deleteIcon' onClick={handelDelete} />
@@ -79,29 +82,33 @@ export default function SinglePost() {
             )}
             <div className="inputWrapper">
                 {
-                    update ? <Input 
-                                value={title} 
-                                id='singlepostTitleInput'
-                                onChange={ (e)=>setTitle(e.target.value)} 
-                                autoFocus/> : (
+                    update ? <Input
+                        value={title}
+                        id='singlepostTitleInput'
+                        onChange={(e) => setTitle(e.target.value)}
+                        autoFocus /> : (
                         <h1 className="singlepostTitle">{post.title}</h1>
                     )
                 }
                 {
-                    update ?    <div className="inputWrapper"> 
-                                    <TextField 
-                                        value={desc} 
-                                        id='singlepostDescInput' 
-                                        multiline
-                                        rows={20}
-                                        onChange={ (e)=>setDesc(e.target.value) }/> 
-                                    <Button 
-                                        variant='contained' 
-                                        color='primary'
-                                        id='singlePostBtn'
-                                        size="large"
-                                        onClick={handelUpdate}>UPDATE</Button>
-                                </div> : (
+                    update ? <div className="inputWrapper" style={{color: "#121212"}}>
+                        <CKEditor
+                            editor={ClassicEditor}
+                            data={desc}
+                            config={
+                                { toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', '|', 'undo', 'redo'] }
+                            }
+                            onChange={(event, editor) => {
+                                const data = editor.getData();
+                                setDesc(data);
+                            }} />
+                        <Button
+                            variant='contained'
+                            color='primary'
+                            id='singlePostBtn'
+                            size="large"
+                            onClick={handelUpdate}>UPDATE</Button>
+                    </div> : (
                         <p className="singlepostDesc">{parse(desc)}</p>
                     )
                 }

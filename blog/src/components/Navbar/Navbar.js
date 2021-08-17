@@ -18,7 +18,7 @@ export default function Navbar() {
         document.getElementById('sidenav').className = 'sidenav-animate';
     }
 
-    const { user, isLoading } = useAuth0();
+    const { user } = useAuth0();
 
     const [alert, setAlert] = useState(false);
     const handleOpen = () => {
@@ -28,8 +28,6 @@ export default function Navbar() {
       const handleClose = () => {
         setAlert(false);
       };
-    
-    console.log(isLoading);
 
     return (
         <>
