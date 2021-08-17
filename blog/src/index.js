@@ -8,8 +8,8 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 
 ReactDOM.render(
     <Auth0Provider
-        domain="dev-hh33qr8t.us.auth0.com"
-        clientId="9JFyqp9vPUMzAVxRSMK92aet7NoqSsao"
+        domain={process.env.REACT_APP_AUTH0_DOMAIN}
+        clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
         redirectUri={window.location.origin}
         useRefreshTokens
         cacheLocation="localstorage"
