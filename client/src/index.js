@@ -4,9 +4,8 @@ import App from './App';
 import axios from 'axios';
 import { Auth0Provider } from "@auth0/auth0-react";
 
-
-require('dotenv').config()
-axios.defaults.baseURL = 'http://localhost:5000/api';
+require('dotenv').config();
+axios.defaults.baseURL = 'http://localhost:5000';
 
 ReactDOM.render(
     <Auth0Provider
