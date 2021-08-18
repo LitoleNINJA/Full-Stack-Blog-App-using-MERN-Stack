@@ -15,8 +15,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon index.js --ignore client"
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
-  "author": "",
+  "author": "Ritwik Singh",
   "license": "ISC"
 }
