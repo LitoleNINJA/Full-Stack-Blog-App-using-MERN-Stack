@@ -5,7 +5,7 @@ import "aos/dist/aos.css";
 import { useEffect } from "react";
 
 export default function Post({ post }) {
-    const loc = "http://localhost:5000/images/";
+    const loc = "https://localhost:5000/images/";
 
     useEffect(() => {
         Aos.init({
