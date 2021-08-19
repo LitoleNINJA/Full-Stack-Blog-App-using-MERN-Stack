@@ -76,7 +76,7 @@ export default function Footer() {
             </div>
             <div className="rights">
                 <h4 className="text-gray">
-                    Copyright ©2019 All rights reserved |{" "}
+                    Copyright ©2021 All rights reserved |{" "}
                     <strong>TechnocratsRobotics.in</strong>
                 </h4>
             </div>
