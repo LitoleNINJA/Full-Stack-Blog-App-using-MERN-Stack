@@ -30,7 +30,7 @@ export default function SinglePost() {
         getPost();
     }, [path])
 
-    const loc = "http://localhost:5000/images/";
+    const loc = "/images/";
     const { user } = useAuth0();
 
     const handelEdit = () => {
