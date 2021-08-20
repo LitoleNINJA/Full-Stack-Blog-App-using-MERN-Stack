@@ -12,7 +12,6 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Header />
       <Switch>
         <Route exact path="/">
           <Header />
