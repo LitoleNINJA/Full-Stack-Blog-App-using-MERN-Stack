@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar/Navbar";
 import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer"; 
+import Footer from "./components/Footer/Footer";
 import Posts from "./pages/Posts/Posts";
 import Single from "./pages/Single/Single";
 import Write from "./pages/Write/Write";
@@ -12,6 +12,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      <Header />
       <Switch>
         <Route exact path="/">
           <Header />

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import parse from 'html-react-parser';
 
 export default function Post({ post }) {
     const loc = "/images/";
@@ -27,7 +28,7 @@ export default function Post({ post }) {
                     <div className="postTitle">{post.title}</div>
                 </Link>
                 <div className="postContent">
-                    <p>{post.desc}</p>
+                    <p>{parse(post.desc)}</p>
                 </div>
             </div>
         </div>
